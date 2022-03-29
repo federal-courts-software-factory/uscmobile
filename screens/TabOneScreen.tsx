@@ -1,40 +1,49 @@
-import { Platform, StyleSheet } from 'react-native';
+import { Platform, StyleSheet, ActivityIndicator, ScrollView   } from 'react-native';
 
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
-import { WebView } from 'react-native-webview';
-
-
-
-
+import { WebView, } from 'react-native-webview';
+import * as React from 'react';
+import Constants from 'expo-constants';
+const {title1} = require('../libs/usc');
+import { SafeAreaView } from 'react-native-safe-area-context';
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
+  function LoadingIndicatorView() {
+    return <ActivityIndicator color='#009b88' size='large' />
+  }
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      { Platform.OS === 'ios' ? <WebView
-        originWhitelist={['*']}
-        source={{ html: '<h1>Hello world!</h1>' }}
-      /> : <h1>Hello World!</h1> }
+    <View style={styles.main}>
+     { Platform.OS !== 'web' ?  <WebView 
+      style={styles.container}
+      originWhitelist={['*']}
+      renderLoading={LoadingIndicatorView}
+      textZoom={100}
+      source={{ uri: 'https://www.govinfo.gov/content/pkg/USCODE-2020-title1/html/USCODE-2020-title1.htm' }}
+    />: <ScrollView  style={styles.webView}>{title1()}</ScrollView > }
+  
  
     </View>
   );
 }
 
+
+
 const styles = StyleSheet.create({
-  container: {
+  main: {
     flex: 1,
-    alignItems: 'center',
     justifyContent: 'center',
   },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
+  webView: {
+    flex: 1, 
+    marginLeft: 50
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
+  container: {
+    flex: 1,
+    marginTop: Constants.statusBarHeight,
+    // this is a hack and somebody should come uup with a better solution.
+    marginLeft: Constants.statusBarHeight,
+    justifyContent: 'center',
+  }
 });
