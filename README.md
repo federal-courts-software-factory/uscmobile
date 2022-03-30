@@ -21,6 +21,8 @@
 
 
 ## Run the Application
+- clone the repo locally `git clone`
+- run `npm install` in the repo folder
 - `expo start`
 - Scan QR Code with mobile device to test.
 
