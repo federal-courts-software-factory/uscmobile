@@ -35,3 +35,20 @@
 ## Roadmap
 - Better thought of navigation to account for 56+ titles.
 - Look into rendering html using something better than https://magic.reactjs.net/htmltojsx.htm, perhaps `react-native-render-html`
+
+## How we do versioning
+On every release we will use changeset to handle our changelog automatically. We will see changes in `CHANGELOG.md` and `./changeset`
+1. `npx changeset`
+2. `npx changeset version` (test version)
+3. `npx changeset publish` (publish to changelog)
+4. `git add -m "Release X - Description"`
+
+
+## More infomation
+- [USCode](https://www.govinfo.gov/app/collection/uscode/2020/)
+- [HTML to JSX](https://magic.reactjs.net/htmltojsx.htm)
+- [React Native Render HTML](https://meliorence.github.io/react-native-render-html/)
+- [React Native WebView docs](https://github.com/react-native-webview/react-native-webview/blob/master/docs/Reference.md)
+- [React Native Offline](https://github.com/rgommezz/react-native-offline)
+- [Adding offline support to RNWeb](https://github.com/expo/fyi/blob/main/enabling-web-service-workers.md)
+- [Expo Progressive App Docs](https://docs.expo.dev/guides/progressive-web-apps/)
