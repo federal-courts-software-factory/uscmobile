@@ -8,7 +8,8 @@
     "ios": "cross-env NODE_OPTIONS='--openssl-legacy-provider' NODE_TLS_REJECT_UNAUTHORIZED=0 expo start --ios",
     "web": "cross-env NODE_OPTIONS='--openssl-legacy-provider' NODE_TLS_REJECT_UNAUTHORIZED=0 expo start --web",
     "eject": "cross-env NODE_OPTIONS='--openssl-legacy-provider' NODE_TLS_REJECT_UNAUTHORIZED=0 expo eject",
-    "test": "cross-env NODE_OPTIONS='--openssl-legacy-provider' NODE_TLS_REJECT_UNAUTHORIZED=0 jest --watchAll"
+    "test": "cross-env NODE_OPTIONS='--openssl-legacy-provider' NODE_TLS_REJECT_UNAUTHORIZED=0 jest --watchAll",
+    "generate:json": "npx directory-tree --path ./libs/usc  --attributes type,extension --pretty -o ./xz.json --depth 2"
   },
   "jest": {
     "preset": "jest-expo"
@@ -19,6 +20,9 @@
     "@react-navigation/bottom-tabs": "^6.0.5",
     "@react-navigation/native": "^6.0.2",
     "@react-navigation/native-stack": "^6.1.0",
+    "@rneui/base": "^4.0.0-rc.1",
+    "@rneui/themed": "^4.0.0-rc.1",
+    "directory-tree": "^3.2.2",
     "expo": "~44.0.0",
     "expo-asset": "~8.4.4",
     "expo-constants": "~13.0.0",
@@ -30,6 +34,10 @@
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-native": "0.64.3",
+    "react-native-collapsible": "^1.6.0",
+    "react-native-elements": "^3.4.2",
+    "react-native-markdown-display": "^7.0.0-alpha.2",
+    "react-native-reanimated": "~2.3.1",
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.10.1",
     "react-native-web": "0.17.1",
