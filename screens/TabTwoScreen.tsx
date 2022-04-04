@@ -1,12 +1,34 @@
-import { StyleSheet, SafeAreaView, ScrollView,  } from 'react-native';
 
-import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, SafeAreaView, ScrollView } from 'react-native';
+
 import Markdown from 'react-native-markdown-display';
+import {markdown, setMarkdown} from '../libs/usc.js'
+import { useNavigation } from '@react-navigation/native';
 
 
 
-export default function TabTwoScreen() {
+export default function TabTwoScreen({route}) {
+  const navigation = useNavigation();
+  const [value, onChangeText] = React.useState(route.params.title);
+  const { chapter, title } = route.params;
+  console.log("component", chapter, title)
+  const [md, setMD] = useState();
+  setMarkdown(chapter, title)
+  useEffect(() => {
+    fetch(markdown)
+        .then(data => data.text())
+        .then(text => {               
+            setMD(text);
+            
+        })
+       
+}, []);
+React.useLayoutEffect(() => {
+  navigation.setOptions({
+    title: value === '' ? 'No title' : value,
+  });
+}, [navigation, value]);
   return (
     <>
     <SafeAreaView>
@@ -15,7 +37,7 @@ export default function TabTwoScreen() {
     style={{height: '100%'}}
   >
       <Markdown>
-            {copy}
+            {md}
           </Markdown>
    
       </ScrollView>
