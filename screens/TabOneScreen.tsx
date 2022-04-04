@@ -24,14 +24,14 @@ import Animated, { useSharedValue, useAnimatedStyle, Layout, FadeInUp, FadeInDow
 import { Text, List, Divider, Avatar } from 'react-native-paper';
 
 
+
 const App = () => {
   const navigation = useNavigation();
 
   const [expanded, setExpanded] = React.useState(false);
 
-
   const handlePress = (chapter, title) =>  { 
-  
+
     navigation.navigate('TabTwo', {
     chapter: chapter,
     title: title
