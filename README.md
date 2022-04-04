@@ -54,3 +54,7 @@ On every release we will use changeset to handle our changelog automatically. We
 - [React Native Offline](https://github.com/rgommezz/react-native-offline)
 - [Adding offline support to RNWeb](https://github.com/expo/fyi/blob/main/enabling-web-service-workers.md)
 - [Expo Progressive App Docs](https://docs.expo.dev/guides/progressive-web-apps/)
+
+# Potential Solutions
+[Expo Filesystem API](https://stackoverflow.com/questions/67271875/expo-download-file-filesystem-download-async-method-post-with-body)
+- Could use this to grab PDF's, or offer PDF viewing offline.
