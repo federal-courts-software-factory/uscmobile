@@ -1,9 +1,8 @@
 
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, SafeAreaView, ScrollView } from 'react-native';
-
-import Markdown from 'react-native-markdown-display';
-import {markdown, setMarkdown} from '../libs/usc.js'
+import { StyleSheet, SafeAreaView, ScrollView, Platform } from 'react-native';
+import Markdown, { MarkdownIt } from 'react-native-markdown-display';
+import {markdown} from '../libs/usc.js'
 import { useNavigation } from '@react-navigation/native';
 
 
@@ -11,12 +10,11 @@ import { useNavigation } from '@react-navigation/native';
 export default function TabTwoScreen({route}) {
   const navigation = useNavigation();
   const [value, onChangeText] = React.useState(route.params.title);
-  const { chapter, title } = route.params;
-  console.log("component", chapter, title)
+  const { chapter, title } = route.params; 
   const [md, setMD] = useState();
-  setMarkdown(chapter, title)
+  const url = `https://raw.githubusercontent.com/federal-courts-software-factory/uscode/master/United%20States%20Code/${encodeURIComponent(title)}/${encodeURIComponent(chapter)}`
   useEffect(() => {
-    fetch(markdown)
+    fetch(url)
         .then(data => data.text())
         .then(text => {               
             setMD(text);
@@ -36,6 +34,7 @@ React.useLayoutEffect(() => {
     contentInsetAdjustmentBehavior="automatic"
     style={{height: '100%'}}
   >
+ 
       <Markdown>
             {md}
           </Markdown>
