@@ -1,13 +1,51 @@
 
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, SafeAreaView, ScrollView, Platform } from 'react-native';
-import Markdown, { MarkdownIt } from 'react-native-markdown-display';
+import { StyleSheet, SafeAreaView, ScrollView, Platform, Appearance, useColorScheme, View, Text } from 'react-native';
+import Markdown from 'react-native-markdown-display';
 import {markdown} from '../libs/usc.js'
 import { useNavigation } from '@react-navigation/native';
+import { StatusBar } from 'expo-status-bar'; // automatically switches bar style based on theme!
 
 
+function RenderMarkdown({md}) {
+
+  let colorScheme = useColorScheme();
+  const themeTextStyle = colorScheme === 'light' ? styles.lightThemeText : styles.darkThemeText;
+  const themeContainerStyle =
+    colorScheme === 'light' ? styles.lightContainer : styles.darkContainer;
+  if (colorScheme === 'dark') {
+   return (
+    <Markdown
+    style={{
+      body: {color: 'white'},
+    }}
+  >
+ 
+{md ? md : null}
+
+</Markdown>
+   ) 
+  } else {
+    // render some light thing
+    return (
+      <Markdown
+      style={styles}
+    >
+     {md ? md : null}
+ 
+     </Markdown>
+    ) 
+
+  }
+}
 
 export default function TabTwoScreen({route}) {
+  let colorScheme = useColorScheme();
+  const themeTextStyle = colorScheme === 'light' ? styles.lightThemeText : styles.darkThemeText;
+  const themeContainerStyle =
+    colorScheme === 'light' ? styles.lightContainer : styles.darkContainer;
+
+
   const navigation = useNavigation();
   const [value, onChangeText] = React.useState(route.params.title);
   const { chapter, title } = route.params; 
@@ -29,18 +67,17 @@ React.useLayoutEffect(() => {
 }, [navigation, value]);
   return (
     <>
-    <SafeAreaView style={{ flex: 1 }}>
+        <StatusBar barStyle="dark-content" />
+    <SafeAreaView style={[styles.container, themeContainerStyle, themeTextStyle]}>
     <ScrollView
     contentInsetAdjustmentBehavior="automatic"
-    contentContainerStyle={{ flexGrow: 1 }}
   >
  
-      <Markdown>
-            {md ? md : null}
-          </Markdown>
+       {md && <RenderMarkdown md={md}/> }
    
       </ScrollView>
        </SafeAreaView>
+   
        </>
   );
 }
@@ -50,17 +87,43 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    padding: 5
   },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
+  lightContainer: {
+    backgroundColor: '#d0d0c0',
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
+  darkContainer: {
+    backgroundColor: '#242c40',
   },
+  lightThemeText: {
+    color: '#242c40',
+  },
+  darkThemeText: {
+    color: '#fff',
+  },
+  heading1: {
+    fontSize: 32,
+    backgroundColor: '#000000',
+    color: '#FFFFFF',
+  },
+  heading2: {
+    fontSize: 24,
+  },
+  heading3: {
+    fontSize: 18,
+  },
+  heading4: {
+    fontSize: 16,
+  },
+  heading5: {
+    fontSize: 13,
+  },
+  heading6: {
+    fontSize: 11,
+  }
 });
+
+
 
 
 const copy =` ### **CHAPTER 1—RULES OF CONSTRUCTION**
