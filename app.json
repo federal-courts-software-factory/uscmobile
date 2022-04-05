@@ -32,6 +32,9 @@
     },
     "packagerOpts": {
       "assetExts": ["md"]
+    },
+    "expo": {
+      "userInterfaceStyle": "automatic"
     }
   }
 }
