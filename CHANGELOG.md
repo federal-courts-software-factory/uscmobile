@@ -1,5 +1,11 @@
 # uscmobile
 
+## 1.3.0
+
+### Minor Changes
+
+- a4f3895: Bugfix release - Dark Mode and Scrolling MD content
+
 ## 1.2.0
 
 ### Minor Changes
