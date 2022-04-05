@@ -29,14 +29,14 @@ React.useLayoutEffect(() => {
 }, [navigation, value]);
   return (
     <>
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
     <ScrollView
     contentInsetAdjustmentBehavior="automatic"
-    style={{height: '100%'}}
+    contentContainerStyle={{ flexGrow: 1 }}
   >
  
       <Markdown>
-            {md}
+            {md ? md : null}
           </Markdown>
    
       </ScrollView>
