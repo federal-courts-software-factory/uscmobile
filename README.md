@@ -2,13 +2,13 @@
 
 ## Windows
 - `choco install nodejs-lts` (node 16.14.2 has been tested)
-- `npm install expo-cli`
-- `expo install react-native-webview`
+- `npm install expo-cli` (expo-cli 5.3.0 has been tested)
+- `expo install react-native-webview` (Not required)
 
 ## Linux
 - `Use OS package manager of choice (apt-get install nodejs)`
-- `npm-install expo-cli`
-- `expo install react-native-webview`
+- `npm install expo-cli`
+- `expo install react-native-webview`  (Not required)
 
 ## Mobile
 - Download `Expo Go` on your IOS/Android device (to test and view changes).
@@ -24,10 +24,17 @@
 - clone the repo locally `git clone`
 - run `npm install` in the repo folder
 - `expo start`
-- Scan QR Code with mobile device to test.
+- Scan QR Code with mobile device to test mobile.
+- Type 'w' to view web version.
 
 
 ### Releases
+#### 0.1.0 RC 1 - Basic app completed - Tyler Harpool
+ - Minimum Viable Product (Release 0.1.0 RC1)
+ - Render markdown from github
+ - React Navigation v6
+ - React Native Paper
+
 #### 0.0.1 - Tyler Harpool
 - Proof of concept, shows that you can render html page from the web using a native web view.
 - Has basic navigation, but will require more work.
