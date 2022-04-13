@@ -62,7 +62,7 @@ function App({navigation}) {
       }}>
         <Stack.Screen name="Home" component={HomeScreen}  options={({ navigation }: RootTabScreenProps<'HomeScreen'>) => ({
           title: 'United States Code',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ theme }) => <TabBarIcon name="code" color={theme.colors.accent} />,
           headerRight: () => (
             <Pressable
               onPress={() => navigation.navigate('Modal')}
@@ -80,7 +80,7 @@ function App({navigation}) {
         })}/>
         <Stack.Screen name="TabTwo" component={DetailView} options={({ route }) => ({ title: route.params.name })} />
         <Stack.Group screenOptions={{ presentation: 'Modal' }}>
-        <Stack.Screen name="Modal" component={ModalScreen} />
+        <Stack.Screen name="Modal" component={ModalScreen}  options={{title: 'About the Federal Court Software Factory'}}/>
       </Stack.Group>
       </Stack.Navigator>
     </NavigationContainer>
