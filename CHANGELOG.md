@@ -1,5 +1,11 @@
 # uscmobile
 
+## 1.3.1
+
+### Patch Changes
+
+- Release Candidate RC1 -- MVP
+
 ## 1.3.0
 
 ### Minor Changes
