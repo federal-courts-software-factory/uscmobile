@@ -45,7 +45,6 @@ export default function TabTwoScreen({route}) {
   const themeContainerStyle =
     colorScheme === 'light' ? styles.lightContainer : styles.darkContainer;
 
-
   const navigation = useNavigation();
   const [value, onChangeText] = React.useState(route.params.title);
   const { chapter, title, path, name } = route.params; 
@@ -70,7 +69,7 @@ React.useLayoutEffect(() => {
     <>
         <StatusBar barStyle="dark-content" />
     <SafeAreaView style={[styles.container, themeContainerStyle, themeTextStyle]}>
-    <ScrollView
+    <ScrollView  style={[styles.mdcontainer]} 
     contentInsetAdjustmentBehavior="automatic"
   >
  
@@ -89,6 +88,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 5
+  },
+  mdcontainer: {
+    padding: '.66rem'
   },
   lightContainer: {
     backgroundColor: '#d0d0c0',
