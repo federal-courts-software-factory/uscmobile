@@ -29,72 +29,77 @@ const App = () => {
   const [expanded, setExpanded] = React.useState(false);
 
   const handlePress = (chapter, title, path, name) =>  { 
-
     navigation.navigate('TabTwo', {
-    chapter: chapter,
-    title: title,
-    path: path,
-    name: name
+      chapter: chapter,
+      title: title,
+      path: path,
+      name: name
     })
-   }
-
-
-   const [data,setData]=useState([]);
-
-   const getData=()=>{
-     fetch('https://raw.githubusercontent.com/federal-courts-software-factory/uscode/master/usc.json'
-     ,{
-       mode: 'no-cors',
-       method: 'GET',
-       headers : { 
-         'Content-Type': 'application/json',
-         'Accept': 'application/json'
+  }
+  
+  const initialData = {
+    "path": "./libs/usc/",
+    "name": "usc",
+    "children": [
+        {
+            "path": "TITLE 01-GENERAL PROVISIONS",
+            "name": "TITLE 01-GENERAL PROVISIONS",
+            "children": [
+                {
+                    "path": "TITLE 01-GENERAL PROVISIONS/CHAPTER 1-RULES OF CONSTRUCTION",
+                    "name": "CHAPTER 1-RULES OF CONSTRUCTION.md"
+                },
+                {
+                    "path": "TITLE 01-GENERAL PROVISIONS/CHAPTER 2-ACTS AND RESOLUTIONS; FORMALITIES OF ENACTMENT; REPEALS; SEALING OF INSTRUMENTS",
+                    "name": "CHAPTER 2-ACTS AND RESOLUTIONS; FORMALITIES OF ENACTMENT; REPEALS; SEALING OF INSTRUMENTS.md"
+                },
+                {
+                    "path": "TITLE 01-GENERAL PROVISIONS/CHAPTER 3-CODE OF LAWS OF UNITED STATES AND SUPPLEMENTS; DISTRICT OF COLUMBIA CODE AND SUPPLEMENTS",
+                    "name": "CHAPTER 3-CODE OF LAWS OF UNITED STATES AND SUPPLEMENTS; DISTRICT OF COLUMBIA CODE AND SUPPLEMENTS.md"
+                }
+            ]
         }
-     }
-     )
-       .then(function(response){
-         console.log(response)
-         console.log("test");
-         return response.json();
-       })
-       .then(function(myJson) {
-         console.log(myJson);
-         setData(myJson)
-       });
-   }
- 
-   useEffect(()=>{
-     getData()
-   },[])
+      ]
+    }
 
+  //const [data,setData]=useState([]);
+  const [data,setData]=useState(initialData)
+  const getData=()=>{
+    fetch('https://raw.githubusercontent.com/federal-courts-software-factory/uscode/master/usc.json')
+    .then(function(response){
+      return response.json();
+    })
+    .then(function(myJson) {
+      setData(myJson);
+      console.log(myJson.children);
+    });
+  }
+  
+  useEffect(()=>{
+    getData()
+  },[])
+  
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.container}>
         <ScrollView>
           <View style={{ backgroundColor: '#000', height: 1, marginTop: 10 }} />
-{data.map((item, i) => {
-  return (
-      <List.Accordion
-      key={i}
-      title={item.name}
-      left={props => <List.Icon {...props} icon="file" />}
-      >
-   {item.map((l,  i) => <List.Item key={i} onPress={() => handlePress(l.name, item.name, l.path, l.name)} title={l.name} />)}
-     
- 
-      </List.Accordion>
-  )
-})}
-
-
-  
-   
-     
-
+          {data.children.map((item, i) => {
+            return (
+              <List.Accordion
+              key={i}
+              title={item.name}
+              left={props => <List.Icon {...props} icon="file" />}
+              >
+                {item.children.map((l,  i) => <List.Item key={i} onPress={() => handlePress(l.name, item.name, l.path, l.name)} title={l.name} />)}     
+              </List.Accordion>
+            )
+          })}
         </ScrollView>
       </View>
     </SafeAreaView>
   );
+
 };
 
 export default App;
