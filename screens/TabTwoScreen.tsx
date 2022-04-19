@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     padding: 5
   },
   mdcontainer: {
-    padding: '.66rem'
+    padding: 10
   },
   lightContainer: {
     backgroundColor: '#d0d0c0',

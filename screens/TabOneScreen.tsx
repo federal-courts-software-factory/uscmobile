@@ -71,7 +71,7 @@ const App = () => {
     })
     .then(function(myJson) {
       setData(myJson);
-      console.log(myJson.children);
+      //console.log(myJson.children);
     });
   }
   
@@ -91,7 +91,7 @@ const App = () => {
               title={item.name}
               left={props => <List.Icon {...props} icon="file" />}
               >
-                {item.children.map((l,  i) => <List.Item key={i} onPress={() => handlePress(l.name, item.name, l.path, l.name)} title={l.name} />)}     
+                {item.children.map((l,  i) => <List.Item key={i} onPress={() => handlePress(l.name, item.name, l.path, l.name)} title={l.name.replace(".md", "")} />)}     
               </List.Accordion>
             )
           })}
