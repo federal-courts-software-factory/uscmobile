@@ -48,9 +48,10 @@ export default function TabTwoScreen({route}) {
 
   const navigation = useNavigation();
   const [value, onChangeText] = React.useState(route.params.title);
-  const { chapter, title } = route.params; 
+  const { chapter, title, path, name } = route.params; 
   const [md, setMD] = useState();
-  const url = `https://raw.githubusercontent.com/federal-courts-software-factory/uscode/master/United%20States%20Code/${encodeURIComponent(title)}/${encodeURIComponent(chapter)}`
+  // const url = `https://raw.githubusercontent.com/federal-courts-software-factory/uscode/master/United%20States%20Code/${encodeURIComponent(title)}/${encodeURIComponent(chapter)}`
+  const url = `https://raw.githubusercontent.com/federal-courts-software-factory/uscode/master/United%20States%20Code/${encodeURIComponent(path)}/${encodeURIComponent(name)}`
   useEffect(() => {
     fetch(url)
         .then(data => data.text())

@@ -2,7 +2,7 @@
 // https://aboutreact.com/collapsible-accordion-expandable-view/
 
 // import React in our code
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import CONTENT from '../libs/usc.json';
 
@@ -23,39 +23,63 @@ import Animated, { useSharedValue, useAnimatedStyle, Layout, FadeInUp, FadeInDow
 //import for the collapsible/Expandable view
 import { Text, List, Divider, Avatar } from 'react-native-paper';
 
-
-
 const App = () => {
   const navigation = useNavigation();
 
   const [expanded, setExpanded] = React.useState(false);
 
-  const handlePress = (chapter, title) =>  { 
+  const handlePress = (chapter, title, path, name) =>  { 
 
     navigation.navigate('TabTwo', {
     chapter: chapter,
-    title: title
+    title: title,
+    path: path,
+    name: name
     })
    }
 
 
+   const [data,setData]=useState([]);
 
+   const getData=()=>{
+     fetch('https://raw.githubusercontent.com/federal-courts-software-factory/uscode/master/usc.json'
+     ,{
+       mode: 'no-cors',
+       method: 'GET',
+       headers : { 
+         'Content-Type': 'application/json',
+         'Accept': 'application/json'
+        }
+     }
+     )
+       .then(function(response){
+         console.log(response)
+         console.log("test");
+         return response.json();
+       })
+       .then(function(myJson) {
+         console.log(myJson);
+         setData(myJson)
+       });
+   }
+ 
+   useEffect(()=>{
+     getData()
+   },[])
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.container}>
         <ScrollView>
           <View style={{ backgroundColor: '#000', height: 1, marginTop: 10 }} />
-        
-        
-{CONTENT.children.map((item, i) => {
+{data.map((item, i) => {
   return (
       <List.Accordion
       key={i}
       title={item.name}
       left={props => <List.Icon {...props} icon="file" />}
       >
-   {item.children.map((l,  i) => <List.Item key={i} onPress={() => handlePress(l.name, item.name)} title={l.name} />)}
+   {item.map((l,  i) => <List.Item key={i} onPress={() => handlePress(l.name, item.name, l.path, l.name)} title={l.name} />)}
      
  
       </List.Accordion>
