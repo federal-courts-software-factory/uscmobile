@@ -2,10 +2,10 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, SafeAreaView, ScrollView, Platform, Appearance, useColorScheme, View, Text } from 'react-native';
 import Markdown from 'react-native-markdown-display';
-import {markdown} from '../libs/usc.js'
+import {markdown, setMarkdown} from '../libs/usc.js'
 import { useNavigation } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar'; // automatically switches bar style based on theme!
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function RenderMarkdown({md}) {
 
@@ -39,7 +39,41 @@ function RenderMarkdown({md}) {
   }
 }
 
+
+
+
+const save = async (title, content) => {
+    try {
+      await AsyncStorage.setItem(title, content)
+    } catch(error) {
+      alert(error)
+    }
+}
+
 export default function TabTwoScreen({route}) {
+  const getData = async (path, name, chapter) => {
+    try {
+      const value = await AsyncStorage.getItem(chapter)
+      if(value !== null) {
+        // value previously stored
+        setMD(value)
+      } else {
+        const url = `https://raw.githubusercontent.com/federal-courts-software-factory/uscode/master/United%20States%20Code/${encodeURIComponent(path)}/${encodeURIComponent(name)}`
+  
+        fetch(url)
+        .then(data => data.text())
+        .then(text => {               
+            setMD(text);
+            save(chapter, text)
+            
+        })
+      }
+    } catch(e) {
+      // error reading value
+      alert(e)
+    }
+  }
+  
   let colorScheme = useColorScheme();
   const themeTextStyle = colorScheme === 'light' ? styles.lightThemeText : styles.darkThemeText;
   const themeContainerStyle =
@@ -50,14 +84,8 @@ export default function TabTwoScreen({route}) {
   const { chapter, title, path, name } = route.params; 
   const [md, setMD] = useState();
   // const url = `https://raw.githubusercontent.com/federal-courts-software-factory/uscode/master/United%20States%20Code/${encodeURIComponent(title)}/${encodeURIComponent(chapter)}`
-  const url = `https://raw.githubusercontent.com/federal-courts-software-factory/uscode/master/United%20States%20Code/${encodeURIComponent(path)}/${encodeURIComponent(name)}`
   useEffect(() => {
-    fetch(url)
-        .then(data => data.text())
-        .then(text => {               
-            setMD(text);
-            
-        })
+    getData(path, name, chapter)
        
 }, []);
 React.useLayoutEffect(() => {
